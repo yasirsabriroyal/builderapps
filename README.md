@@ -1,6 +1,6 @@
 # Home Builder Design Center PWA
 
-[![Deploy to GitHub Pages](https://github.com/yasirsabriroyal/builderapps/actions/workflows/deploy.yml/badge.svg)](https://github.com/yasirsabriroyal/builderapps/actions/workflows/deploy.yml)
+[![Deploy to GitHub Pages](https://github.com/yasirsabriroyal/builderapps/actions/workflows/gh-pages-deploy.yml/badge.svg)](https://github.com/yasirsabriroyal/builderapps/actions/workflows/gh-pages-deploy.yml)
 
 A Progressive Web App (PWA) that empowers customers to design and customize their dream home through an interactive, multi-stage process.
 
@@ -9,6 +9,8 @@ A Progressive Web App (PWA) that empowers customers to design and customize thei
 **[Try the Live Demo →](https://yasirsabriroyal.github.io/builderapps/)**
 
 Experience the full application without any installation required!
+
+> **📘 Setting up GitHub Pages?** See **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** for easy setup instructions!
 
 ## Features
 
@@ -155,44 +157,31 @@ All pricing is for demonstration purposes only.
 
 The application is automatically deployed to GitHub Pages using GitHub Actions. Any push to the `main` or `copilot/create-home-builder-pwa` branch triggers a new deployment.
 
-### GitHub Pages Setup (Required - One-Time)
+### 📘 Simple GitHub Pages Setup
 
-If you're seeing "There isn't a GitHub Pages site here", follow these steps:
+**See the complete guide: [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)**
 
-1. **Enable GitHub Pages in Repository Settings:**
-   - Go to your repository on GitHub
-   - Click **Settings** → **Pages** (in the left sidebar)
-   - Under **Source**, select **"GitHub Actions"**
-   - Click **Save**
+Quick summary:
+1. **Trigger workflow**: Go to Actions tab → Run "Deploy to GitHub Pages" workflow
+2. **Configure Pages**: Settings → Pages → Source: "Deploy from a branch" → Branch: "gh-pages"
+3. **Access site**: https://yasirsabriroyal.github.io/builderapps/
 
-2. **Trigger Deployment:**
-   - The workflow will automatically run on the next push
-   - Or manually trigger it: Go to **Actions** → **Deploy to GitHub Pages** → **Run workflow**
+The workflow deploys to a **gh-pages** branch, which works with the standard "Deploy from a branch" option in GitHub Pages settings.
 
-3. **Wait for Deployment:**
-   - Check the **Actions** tab to see the workflow progress
-   - Deployment typically takes 1-2 minutes
-   - Once complete, your site will be live at: `https://yasirsabriroyal.github.io/builderapps/`
+### Troubleshooting
 
-4. **Verify Deployment:**
-   - Visit the URL to confirm the site is working
-   - All routes should work correctly (/, /stage1, /stage2, etc.)
+**Can't find "GitHub Actions" in Source dropdown?**
+- ✅ Use "Deploy from a branch" instead (select "gh-pages" branch)
+- ✅ See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for detailed steps
 
-### Troubleshooting GitHub Pages
+**Site showing 404?**
+- Verify gh-pages branch is selected in Settings → Pages
+- Wait 2-3 minutes after deployment
+- Check Actions tab for successful workflow completion
 
-**Problem: "There isn't a GitHub Pages site here"**
-- Solution: Follow the GitHub Pages Setup steps above
-- Ensure the workflow has run successfully (check Actions tab)
-- Wait 1-2 minutes after the workflow completes
-
-**Problem: 404 errors on direct route access**
-- Solution: The 404.html file handles SPA routing automatically
-- This is already configured in the repository
-
-**Problem: Workflow failing**
-- Check the Actions tab for error details
-- Ensure all dependencies are up to date
-- Verify the build completes locally: `npm run build`
+**Need more help?**
+- See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for step-by-step instructions with screenshots
+- See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for additional troubleshooting
 
 ### Manual Deployment
 
