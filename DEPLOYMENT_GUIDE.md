@@ -37,12 +37,14 @@ The workflow will deploy your site. You can trigger it by:
 2. Click the **Actions** tab at the top
 3. In the left sidebar, click **"Deploy to GitHub Pages"**
 4. Click the blue **"Run workflow"** button on the right
-5. Select the branch you want to deploy
+5. Select the branch you want to deploy (configured branches: `main`, `copilot/create-home-builder-pwa`)
 6. Click green **"Run workflow"** button
 7. Wait 2-3 minutes for it to complete (green checkmark ✓)
 
 Once the workflow completes, your site will be live at:
 **https://yasirsabriroyal.github.io/builderapps/**
+
+Note: After the first deployment, it may take an additional 2-3 minutes for the site to be accessible.
 
 ---
 
@@ -101,7 +103,7 @@ Build and deployment
 - [ ] Step 2: Source dropdown → Select "GitHub Actions"
 - [ ] Step 3: Trigger workflow (merge PR or run manually in Actions tab)
 - [ ] Step 4: Wait for workflow to complete (check Actions tab for ✓)
-- [ ] Step 5: Wait 1-2 minutes for Pages to update
+- [ ] Step 5: Wait 2-3 minutes for Pages to update
 - [ ] Step 6: Visit https://yasirsabriroyal.github.io/builderapps/
 
 ---
@@ -127,7 +129,7 @@ Build and deployment
 **Solution**: 
 - Make sure you selected "GitHub Actions" as the source
 - Check that the workflow completed successfully (green checkmark)
-- Wait a few more minutes (can take 2-5 minutes)
+- Wait 2-3 minutes for Pages to propagate
 - Clear browser cache and try again
 
 ### "Site is not updating after I push changes"
@@ -180,7 +182,7 @@ If you encounter issues:
 1. Check the Actions tab for workflow errors
 2. Verify Settings → Pages shows "GitHub Actions" as source
 3. Make sure repository is public (or has GitHub Pro)
-4. Wait a full 5 minutes after first deployment
+4. Wait 2-3 minutes after first deployment
 5. Try accessing the site in an incognito/private window
 
 Common mistakes to avoid:

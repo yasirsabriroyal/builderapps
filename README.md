@@ -164,7 +164,8 @@ The application is automatically deployed to GitHub Pages using GitHub Actions. 
 Quick summary:
 1. **Configure Pages**: Settings → Pages → Source: **"GitHub Actions"**
 2. **Trigger workflow**: Push code or go to Actions tab → Run "Deploy to GitHub Pages" workflow
-3. **Access site**: https://yasirsabriroyal.github.io/builderapps/
+3. **Wait**: 2-3 minutes for deployment to complete
+4. **Access site**: https://yasirsabriroyal.github.io/builderapps/
 
 The workflow uses the official GitHub Actions deployment method for seamless integration with GitHub Pages.
 
