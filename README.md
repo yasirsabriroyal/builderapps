@@ -162,25 +162,21 @@ The application is automatically deployed to GitHub Pages using GitHub Actions. 
 **See the complete guide: [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)**
 
 Quick summary:
-1. **Trigger workflow**: Go to Actions tab → Run "Deploy to GitHub Pages" workflow
-2. **Configure Pages**: Settings → Pages → Source: "Deploy from a branch" → Branch: "gh-pages"
+1. **Configure Pages**: Settings → Pages → Source: **"GitHub Actions"**
+2. **Trigger workflow**: Push code or go to Actions tab → Run "Deploy to GitHub Pages" workflow
 3. **Access site**: https://yasirsabriroyal.github.io/builderapps/
 
-The workflow deploys to a **gh-pages** branch, which works with the standard "Deploy from a branch" option in GitHub Pages settings.
+The workflow uses the official GitHub Actions deployment method for seamless integration with GitHub Pages.
 
 ### Troubleshooting
 
-**Can't find "GitHub Actions" in Source dropdown?**
-- ✅ Use "Deploy from a branch" instead (select "gh-pages" branch)
-- ✅ See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for detailed steps
-
 **Site showing 404?**
-- Verify gh-pages branch is selected in Settings → Pages
-- Wait 2-3 minutes after deployment
+- Verify "GitHub Actions" is selected in Settings → Pages → Source
 - Check Actions tab for successful workflow completion
+- Wait 2-3 minutes after deployment
 
 **Need more help?**
-- See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for step-by-step instructions with screenshots
+- See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for step-by-step instructions
 - See [GITHUB_PAGES_SETUP.md](GITHUB_PAGES_SETUP.md) for additional troubleshooting
 
 ### Manual Deployment

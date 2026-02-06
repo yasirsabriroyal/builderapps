@@ -1,58 +1,48 @@
 # SIMPLE GitHub Pages Setup Guide
 
-## ✅ SOLUTION: Use gh-pages Branch Method
+## ✅ SOLUTION: Use GitHub Actions (Official Method)
 
-Since you cannot find "GitHub Actions" in the Source dropdown, we're using the **gh-pages branch** method instead. This is simpler and more widely available!
-
----
-
-## 📋 Quick Setup (3 Steps)
-
-### Step 1: Trigger the Deployment Workflow
-
-The workflow will run automatically when you push code, OR you can trigger it manually:
-
-**Option A: Push this PR** (Recommended)
-- Just merge this Pull Request
-- The workflow will run automatically
-- Go to **Actions** tab to watch it
-
-**Option B: Manual Trigger**
-1. Go to your repository: https://github.com/yasirsabriroyal/builderapps
-2. Click the **Actions** tab at the top
-3. In the left sidebar, click **"Deploy to GitHub Pages (gh-pages branch)"**
-4. Click the blue **"Run workflow"** button on the right
-5. Select branch: `copilot/create-home-builder-pwa`
-6. Click green **"Run workflow"** button
-7. Wait 1-2 minutes for it to complete (green checkmark ✓)
+This repository uses the **official GitHub Actions** method to deploy to GitHub Pages. This is the modern, recommended approach!
 
 ---
 
-### Step 2: Configure GitHub Pages Settings
+## 📋 Quick Setup (2 Steps)
 
-Now that the gh-pages branch exists, configure GitHub Pages:
+### Step 1: Configure GitHub Pages Settings
+
+First, enable GitHub Pages with GitHub Actions as the source:
 
 1. Go to: https://github.com/yasirsabriroyal/builderapps/settings/pages
 
 2. You'll see a section called **"Build and deployment"**
 
 3. Under **"Source"**, click the dropdown and select:
-   - **"Deploy from a branch"** ⬅️ Select this option
+   - **"GitHub Actions"** ⬅️ Select this option
    
-4. Under **"Branch"**, you'll see two dropdowns:
-   - First dropdown: Select **"gh-pages"** ⬅️ Select this
-   - Second dropdown: Select **"/ (root)"** ⬅️ Keep this
-   
-5. Click the **"Save"** button
+4. That's it! No need to select a branch or click Save.
 
 ---
 
-### Step 3: Wait and Access Your Site
+### Step 2: Trigger the Deployment Workflow
 
-1. Wait 1-2 minutes for GitHub Pages to deploy
-2. Refresh the Settings → Pages page
-3. You'll see a message at the top: **"Your site is live at https://yasirsabriroyal.github.io/builderapps/"**
-4. Click the link or visit: https://yasirsabriroyal.github.io/builderapps/
+The workflow will deploy your site. You can trigger it by:
+
+**Option A: Push/Merge this PR** (Recommended)
+- Just merge this Pull Request to `main`
+- The workflow will run automatically
+- Go to **Actions** tab to watch it
+
+**Option B: Manual Trigger**
+1. Go to your repository: https://github.com/yasirsabriroyal/builderapps
+2. Click the **Actions** tab at the top
+3. In the left sidebar, click **"Deploy to GitHub Pages"**
+4. Click the blue **"Run workflow"** button on the right
+5. Select the branch you want to deploy
+6. Click green **"Run workflow"** button
+7. Wait 2-3 minutes for it to complete (green checkmark ✓)
+
+Once the workflow completes, your site will be live at:
+**https://yasirsabriroyal.github.io/builderapps/**
 
 ---
 
@@ -62,11 +52,10 @@ Now that the gh-pages branch exists, configure GitHub Pages:
 
 ```
 Build and deployment
-├─ Source: [Deploy from a branch ▼]  ⬅️ NOT "GitHub Actions"
-└─ Branch: [gh-pages ▼] [/ (root) ▼] [Save]
+└─ Source: [GitHub Actions ▼]  ⬅️ Select "GitHub Actions"
 ```
 
-**Important**: You are looking for **"Deploy from a branch"**, NOT "GitHub Actions"!
+**Important**: You are looking for **"GitHub Actions"**, NOT "Deploy from a branch"!
 
 ---
 
@@ -86,67 +75,59 @@ Build and deployment
 │                                                      │
 │  Source                                             │
 │  ┌─────────────────────────────────┐               │
-│  │ Deploy from a branch        ▼  │  ⬅️ Select    │
+│  │ GitHub Actions              ▼  │  ⬅️ Select    │
 │  └─────────────────────────────────┘               │
-│                                                      │
-│  Branch                                             │
-│  ┌──────────────┐  ┌──────────────┐               │
-│  │ gh-pages  ▼ │  │ / (root)  ▼ │  [Save]        │
-│  └──────────────┘  └──────────────┘               │
 │                                                      │
 └─────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🔧 Why This Works Better
+## 🔧 Why This Method Works Best
 
-### Old Method (Not Available)
-- Required "GitHub Actions" option in dropdown
-- Not available in all GitHub accounts/repositories
-- Newer feature, not universally rolled out
-
-### New Method (gh-pages branch) ✅
-- Uses traditional "Deploy from a branch" option
-- Available in ALL GitHub repositories
-- Been around for years, very reliable
-- Easier to understand and configure
+### Modern Official Method (GitHub Actions) ✅
+- Official GitHub-recommended approach
+- No need to manage a separate gh-pages branch
+- Cleaner repository (no deployment commits cluttering history)
+- Better security with OIDC token authentication
+- Automatic artifact handling
+- Available in all modern GitHub repositories
 
 ---
 
 ## 📝 Complete Checklist
 
-- [ ] Step 1: Trigger workflow (merge PR or run manually in Actions tab)
-- [ ] Step 2: Wait for workflow to complete (check Actions tab for ✓)
-- [ ] Step 3: Go to Settings → Pages
-- [ ] Step 4: Source dropdown → Select "Deploy from a branch"
-- [ ] Step 5: Branch dropdown → Select "gh-pages"
-- [ ] Step 6: Second dropdown → Keep "/ (root)"
-- [ ] Step 7: Click "Save" button
-- [ ] Step 8: Wait 1-2 minutes
-- [ ] Step 9: Visit https://yasirsabriroyal.github.io/builderapps/
+- [ ] Step 1: Go to Settings → Pages
+- [ ] Step 2: Source dropdown → Select "GitHub Actions"
+- [ ] Step 3: Trigger workflow (merge PR or run manually in Actions tab)
+- [ ] Step 4: Wait for workflow to complete (check Actions tab for ✓)
+- [ ] Step 5: Wait 1-2 minutes for Pages to update
+- [ ] Step 6: Visit https://yasirsabriroyal.github.io/builderapps/
 
 ---
 
 ## ❓ Troubleshooting
 
-### "I don't see gh-pages in the branch dropdown"
-**Solution**: The workflow needs to run first to create the gh-pages branch.
-- Go to Actions tab → Run the workflow manually
-- Wait for it to complete (green checkmark)
-- Then go back to Settings → Pages
+### "I don't see GitHub Actions in the Source dropdown"
+**Solution**: This is a newer feature. Make sure:
+- Your repository is public (or you have GitHub Pro/Enterprise)
+- You're in the right Settings → Pages section
+- Try refreshing the page
+- If still not available, contact GitHub support or use an alternative hosting
 
 ### "The workflow is failing"
 **Solution**: Check the error in the Actions tab
 - Click on the failed workflow
 - Look at the error message
-- Common fix: Make sure dependencies are installed
+- Common issues:
+  - Build errors: Check that `npm run build` works locally
+  - Permission errors: Verify workflow has proper permissions
 
 ### "Site shows 404 error"
 **Solution**: 
-- Make sure you selected "gh-pages" branch (not "main")
-- Make sure you selected "/ (root)" folder
-- Wait a few more minutes
+- Make sure you selected "GitHub Actions" as the source
+- Check that the workflow completed successfully (green checkmark)
+- Wait a few more minutes (can take 2-5 minutes)
 - Clear browser cache and try again
 
 ### "Site is not updating after I push changes"
@@ -164,10 +145,11 @@ Once everything is set up, your site will be live at:
 
 **https://yasirsabriroyal.github.io/builderapps/**
 
-Every time you push new code, the workflow will automatically:
+Every time you push new code to `main` or the configured branches, the workflow will automatically:
 1. Build your application
-2. Deploy to gh-pages branch
-3. GitHub Pages will update your live site
+2. Upload the build as an artifact
+3. Deploy to GitHub Pages
+4. Your live site updates in 2-3 minutes
 
 ---
 
@@ -179,22 +161,34 @@ Every time you push new code, the workflow will automatically:
 2. **Check deployment status**:
    - Green checkmark ✓ = Success
    - Red X ✗ = Failed (click for details)
+   - Yellow circle ⚪ = In progress
    
 3. **Manual deployments**:
    - Go to Actions → Deploy workflow → Run workflow
    - Useful for re-deploying without code changes
 
+4. **View deployment URL**:
+   - After workflow completes, you'll see the deployment URL in the workflow logs
+   - Also visible in Settings → Pages
+
 ---
 
 ## 📞 Still Need Help?
 
-If you still can't find the right option:
+If you encounter issues:
 
-1. Take a screenshot of your Settings → Pages screen
-2. Share it to get specific guidance
-3. Make sure you're looking at Settings → Pages (not Settings → Actions)
-4. Verify the repository is public (or you have GitHub Pro for private repos)
+1. Check the Actions tab for workflow errors
+2. Verify Settings → Pages shows "GitHub Actions" as source
+3. Make sure repository is public (or has GitHub Pro)
+4. Wait a full 5 minutes after first deployment
+5. Try accessing the site in an incognito/private window
+
+Common mistakes to avoid:
+- ❌ Selecting "Deploy from a branch" instead of "GitHub Actions"
+- ❌ Not waiting long enough after first deployment
+- ❌ Not checking if workflow completed successfully
+- ❌ Repository is private without GitHub Pro
 
 ---
 
-**This method is tested and works universally! Follow the steps above and your site will be live in minutes.**
+**This is the modern, official GitHub approach. Follow the steps above and your site will be live in minutes!**
