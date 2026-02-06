@@ -155,9 +155,48 @@ All pricing is for demonstration purposes only.
 
 The application is automatically deployed to GitHub Pages using GitHub Actions. Any push to the `main` or `copilot/create-home-builder-pwa` branch triggers a new deployment.
 
+### GitHub Pages Setup (Required - One-Time)
+
+If you're seeing "There isn't a GitHub Pages site here", follow these steps:
+
+1. **Enable GitHub Pages in Repository Settings:**
+   - Go to your repository on GitHub
+   - Click **Settings** → **Pages** (in the left sidebar)
+   - Under **Source**, select **"GitHub Actions"**
+   - Click **Save**
+
+2. **Trigger Deployment:**
+   - The workflow will automatically run on the next push
+   - Or manually trigger it: Go to **Actions** → **Deploy to GitHub Pages** → **Run workflow**
+
+3. **Wait for Deployment:**
+   - Check the **Actions** tab to see the workflow progress
+   - Deployment typically takes 1-2 minutes
+   - Once complete, your site will be live at: `https://yasirsabriroyal.github.io/builderapps/`
+
+4. **Verify Deployment:**
+   - Visit the URL to confirm the site is working
+   - All routes should work correctly (/, /stage1, /stage2, etc.)
+
+### Troubleshooting GitHub Pages
+
+**Problem: "There isn't a GitHub Pages site here"**
+- Solution: Follow the GitHub Pages Setup steps above
+- Ensure the workflow has run successfully (check Actions tab)
+- Wait 1-2 minutes after the workflow completes
+
+**Problem: 404 errors on direct route access**
+- Solution: The 404.html file handles SPA routing automatically
+- This is already configured in the repository
+
+**Problem: Workflow failing**
+- Check the Actions tab for error details
+- Ensure all dependencies are up to date
+- Verify the build completes locally: `npm run build`
+
 ### Manual Deployment
 
-To deploy manually:
+To deploy manually to other hosting services:
 
 ```bash
 npm run build
@@ -165,6 +204,11 @@ npm run build
 ```
 
 The app is configured to work with GitHub Pages at `/builderapps/` base path.
+
+For other hosting providers (Vercel, Netlify, etc.), you may need to:
+1. Update `vite.config.ts` - set `base: '/'` 
+2. Remove the `basename` prop from `<Router>` in `src/App.tsx`
+3. Rebuild: `npm run build`
 
 ## Browser Support
 
