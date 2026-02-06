@@ -10,7 +10,7 @@ import { Stage3Customize } from './components/stage3/Stage3Customize';
 function App() {
   return (
     <AppProvider>
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/stage1" element={<Stage1 />} />

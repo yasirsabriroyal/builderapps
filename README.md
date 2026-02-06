@@ -1,6 +1,14 @@
 # Home Builder Design Center PWA
 
+[![Deploy to GitHub Pages](https://github.com/yasirsabriroyal/builderapps/actions/workflows/deploy.yml/badge.svg)](https://github.com/yasirsabriroyal/builderapps/actions/workflows/deploy.yml)
+
 A Progressive Web App (PWA) that empowers customers to design and customize their dream home through an interactive, multi-stage process.
+
+## 🚀 Live Demo
+
+**[Try the Live Demo →](https://yasirsabriroyal.github.io/builderapps/)**
+
+Experience the full application without any installation required!
 
 ## Features
 
@@ -142,6 +150,21 @@ All pricing is for demonstration purposes only.
 - Integration with actual inventory systems
 - Appointment booking
 - Real-time collaboration with design team
+
+## Deployment
+
+The application is automatically deployed to GitHub Pages using GitHub Actions. Any push to the `main` or `copilot/create-home-builder-pwa` branch triggers a new deployment.
+
+### Manual Deployment
+
+To deploy manually:
+
+```bash
+npm run build
+# Then deploy the dist/ folder to your hosting service
+```
+
+The app is configured to work with GitHub Pages at `/builderapps/` base path.
 
 ## Browser Support
 
