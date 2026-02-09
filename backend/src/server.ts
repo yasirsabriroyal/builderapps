@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import { sequelize } from './config/database';
 import authRoutes from './routes/auth.routes';
 import projectRoutes from './routes/project.routes';
+import designRoutes from './routes/design.routes';
+import materialRoutes from './routes/material.routes';
 
 // Load environment variables
 dotenv.config();
@@ -33,6 +35,8 @@ app.get('/health', (req: Request, res: Response) => {
 // API Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/projects', projectRoutes);
+app.use('/api/v1', designRoutes);
+app.use('/api/v1', materialRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {
