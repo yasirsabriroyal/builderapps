@@ -12,8 +12,8 @@ import { apiLimiter, createLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 
-router.use(authenticate);
 router.use(apiLimiter);
+router.use(authenticate);
 
 router.get('/', listProjects);
 router.post('/', createLimiter, validateProject, createProject);
