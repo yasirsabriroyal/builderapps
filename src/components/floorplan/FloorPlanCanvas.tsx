@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { fabric } from 'fabric';
 import { Box, CircularProgress } from '@mui/material';
+import type { CustomFabricObject } from './types';
+import { isGridObject } from './types';
 
 export type DrawingMode = 'select' | 'wall' | 'room' | 'door' | 'window' | 'text';
 
@@ -38,27 +40,25 @@ export const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({
     const height = canvas.getHeight();
 
     for (let i = 0; i < width / gridSize; i++) {
-      canvas.add(
-        new fabric.Line([i * gridSize, 0, i * gridSize, height], {
-          stroke: '#e0e0e0',
-          strokeWidth: 1,
-          selectable: false,
-          evented: false,
-          type: 'grid',
-        })
-      );
+      const line = new fabric.Line([i * gridSize, 0, i * gridSize, height], {
+        stroke: '#e0e0e0',
+        strokeWidth: 1,
+        selectable: false,
+        evented: false,
+      }) as CustomFabricObject;
+      line.objectType = 'grid';
+      canvas.add(line);
     }
 
     for (let i = 0; i < height / gridSize; i++) {
-      canvas.add(
-        new fabric.Line([0, i * gridSize, width, i * gridSize], {
-          stroke: '#e0e0e0',
-          strokeWidth: 1,
-          selectable: false,
-          evented: false,
-          type: 'grid',
-        })
-      );
+      const line = new fabric.Line([0, i * gridSize, width, i * gridSize], {
+        stroke: '#e0e0e0',
+        strokeWidth: 1,
+        selectable: false,
+        evented: false,
+      }) as CustomFabricObject;
+      line.objectType = 'grid';
+      canvas.add(line);
     }
   };
 
@@ -126,7 +126,7 @@ export const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({
     
     // Make all objects selectable or not based on mode
     canvas.forEachObject((obj) => {
-      if (obj.type !== 'grid') {
+      if (!isGridObject(obj)) {
         obj.selectable = drawingMode === 'select';
         obj.evented = drawingMode === 'select';
       }
@@ -260,20 +260,24 @@ export const FloorPlanCanvas: React.FC<FloorPlanCanvasProps> = ({
         tempObjectRef.current.evented = true;
         
         // Add metadata
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const obj = tempObjectRef.current as any;
-        obj.objectType = drawingMode;
+        const obj = tempObjectRef.current as CustomFabricObject;
+        if (drawingMode !== 'select') {
+          obj.objectType = drawingMode;
+        }
         
         // Calculate area for rooms
-        if (drawingMode === 'room' && obj.width && obj.height) {
-          const areaInPixels = obj.width * obj.height;
+        if (drawingMode === 'room' && obj.objectType === 'room') {
+          const rect = obj as fabric.Rect & { area?: number; left?: number; top?: number; width?: number; height?: number; scaleX?: number; scaleY?: number };
+          const width = (rect.width || 0) * (rect.scaleX || 1);
+          const height = (rect.height || 0) * (rect.scaleY || 1);
+          const areaInPixels = width * height;
           const areaInSqFt = (areaInPixels / (gridSize * gridSize)) * 9; // Assuming 1 grid = 3ft x 3ft
-          obj.area = Math.round(areaInSqFt);
+          rect.area = Math.round(areaInSqFt);
           
           // Add area label
-          const label = new fabric.Text(`${obj.area} sq ft`, {
-            left: obj.left + obj.width / 2,
-            top: obj.top + obj.height / 2,
+          const label = new fabric.Text(`${rect.area} sq ft`, {
+            left: (rect.left || 0) + width / 2,
+            top: (rect.top || 0) + height / 2,
             fontSize: 14,
             fill: '#0066cc',
             originX: 'center',

@@ -26,6 +26,8 @@ import { FloorPlanToolbar } from '../components/floorplan/FloorPlanToolbar';
 import { FloorPlanTemplates } from '../components/floorplan/FloorPlanTemplates';
 import type { FloorPlanTemplate } from '../components/floorplan/FloorPlanTemplates';
 import { FloorPlanDimensions } from '../components/floorplan/FloorPlanDimensions';
+import type { CustomFabricObject } from '../components/floorplan/types';
+import { isRoomObject } from '../components/floorplan/types';
 import { projectService } from '../services/project.service';
 import type { Project } from '../services/project.service';
 
@@ -127,8 +129,9 @@ export const FloorPlanPage: React.FC = () => {
     setGridEnabled(!gridEnabled);
     if (!canvas) return;
     
-    canvas.forEachObject((obj: any) => {
-      if (obj.type === 'grid') {
+    canvas.forEachObject((obj) => {
+      const customObj = obj as CustomFabricObject;
+      if (customObj.objectType === 'grid') {
         obj.visible = !gridEnabled;
       }
     });
@@ -138,7 +141,10 @@ export const FloorPlanPage: React.FC = () => {
   const handleClear = () => {
     if (!canvas) return;
     if (window.confirm('Are you sure you want to clear the canvas? This cannot be undone.')) {
-      const objects = canvas.getObjects().filter((obj: any) => obj.type !== 'grid');
+      const objects = canvas.getObjects().filter((obj) => {
+        const customObj = obj as CustomFabricObject;
+        return customObj.objectType !== 'grid';
+      });
       objects.forEach((obj) => canvas.remove(obj));
       canvas.requestRenderAll();
       saveHistory();
@@ -160,19 +166,17 @@ export const FloorPlanPage: React.FC = () => {
     
     const rooms: RoomData[] = [];
     canvas.forEachObject((obj) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fabricObj = obj as any;
-      if (fabricObj.objectType === 'room' && fabricObj.type === 'rect') {
-        const area = fabricObj.area || 0;
+      if (isRoomObject(obj)) {
+        const area = obj.area || 0;
         rooms.push({
-          id: fabricObj.id || `room-${Date.now()}`,
+          id: obj.id || `room-${Date.now()}`,
           name: 'Room',
           area,
           coordinates: [
-            { x: fabricObj.left, y: fabricObj.top },
-            { x: fabricObj.left + fabricObj.width, y: fabricObj.top },
-            { x: fabricObj.left + fabricObj.width, y: fabricObj.top + fabricObj.height },
-            { x: fabricObj.left, y: fabricObj.top + fabricObj.height },
+            { x: obj.left || 0, y: obj.top || 0 },
+            { x: (obj.left || 0) + (obj.width || 0), y: obj.top || 0 },
+            { x: (obj.left || 0) + (obj.width || 0), y: (obj.top || 0) + (obj.height || 0) },
+            { x: obj.left || 0, y: (obj.top || 0) + (obj.height || 0) },
           ],
         });
       }
@@ -218,18 +222,16 @@ export const FloorPlanPage: React.FC = () => {
       
       const rooms: RoomData[] = [];
       canvas.forEachObject((obj) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const fabricObj = obj as any;
-        if (fabricObj.objectType === 'room' && fabricObj.type === 'rect') {
+        if (isRoomObject(obj)) {
           rooms.push({
-            id: fabricObj.id || `room-${Date.now()}`,
+            id: obj.id || `room-${Date.now()}`,
             name: 'Room',
-            area: fabricObj.area || 0,
+            area: obj.area || 0,
             coordinates: [
-              { x: fabricObj.left, y: fabricObj.top },
-              { x: fabricObj.left + fabricObj.width, y: fabricObj.top },
-              { x: fabricObj.left + fabricObj.width, y: fabricObj.top + fabricObj.height },
-              { x: fabricObj.left, y: fabricObj.top + fabricObj.height },
+              { x: obj.left || 0, y: obj.top || 0 },
+              { x: (obj.left || 0) + (obj.width || 0), y: obj.top || 0 },
+              { x: (obj.left || 0) + (obj.width || 0), y: (obj.top || 0) + (obj.height || 0) },
+              { x: obj.left || 0, y: (obj.top || 0) + (obj.height || 0) },
             ],
           });
         }
@@ -358,13 +360,11 @@ export const FloorPlanPage: React.FC = () => {
     let totalArea = 0;
 
     canvas.forEachObject((obj) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fabricObj = obj as any;
-      if (fabricObj.objectType === 'room' && fabricObj.type === 'rect' && fabricObj.area) {
-        const area = fabricObj.area;
+      if (isRoomObject(obj) && obj.area) {
+        const area = obj.area;
         totalArea += area;
         rooms.push({
-          id: fabricObj.id || `room-${rooms.length}`,
+          id: obj.id || `room-${rooms.length}`,
           name: `Room ${rooms.length + 1}`,
           area,
         });
