@@ -83,6 +83,100 @@ This repository contains comprehensive documentation for implementing the Builde
 
 ## 🚀 Getting Started
 
+### 🎉 **The App is Now Built!**
+
+You can now run and interact with the Builder App! Follow the instructions below to get started.
+
+### Currently Available: Working MVP
+
+The MVP includes:
+- ✅ **Backend API** - Node.js + Express + PostgreSQL
+- ✅ **Frontend Web App** - React + TypeScript + Material-UI
+- ✅ **User Authentication** - Register and login
+- ✅ **Project Management** - Create and manage construction projects
+- ✅ **Responsive Design** - Works on desktop and mobile
+
+### Prerequisites
+
+Before you start, make sure you have:
+- **Node.js 18+** installed
+- **PostgreSQL 15+** installed and running
+- **npm** or **yarn** package manager
+
+### Quick Start (3 Steps!)
+
+#### 1. **Set Up the Database**
+
+```bash
+# Create the database
+createdb builder_app
+
+# Or using psql:
+psql -U postgres
+CREATE DATABASE builder_app;
+\q
+```
+
+#### 2. **Start the Backend**
+
+```bash
+# Navigate to backend
+cd backend
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env
+# Edit .env if needed (default settings work for local development)
+
+# Start the server
+npm run dev
+```
+
+Backend will start at: **http://localhost:3001**
+
+#### 3. **Start the Frontend (in a new terminal)**
+
+```bash
+# Navigate to frontend
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start the app
+npm start
+```
+
+Frontend will open automatically at: **http://localhost:3000**
+
+### 🎊 That's it! You can now:
+
+1. **Visit http://localhost:3000**
+2. **Click "Sign Up"** to create an account
+3. **Create your first project**
+4. **Start designing your dream home!**
+
+---
+
+### Troubleshooting
+
+**Database Connection Error?**
+- Make sure PostgreSQL is running
+- Check database credentials in `backend/.env`
+- Verify the database exists: `psql -l | grep builder_app`
+
+**Port Already in Use?**
+- Backend: Change `PORT` in `backend/.env`
+- Frontend: It will auto-prompt for a different port
+
+**Module Not Found Error?**
+- Delete `node_modules` and `package-lock.json`
+- Run `npm install` again
+
+---
+
 ### Currently Available: Documentation & Specifications
 
 Since the application code is not yet implemented, here's how to get started:
