@@ -2,6 +2,52 @@
 
 A comprehensive design center application that enables clients to design their dream home and collaborate with the building team throughout the construction process.
 
+---
+
+## 📍 **Current Status: Specification & Planning Phase**
+
+> **⚠️ Important:** This repository currently contains **comprehensive documentation and technical specifications** for the Builder App. The actual application code is not yet implemented.
+
+### What's Available Now:
+- ✅ **Complete Feature Specifications** - 15 detailed features with user stories
+- ✅ **Database Schema Design** - 20 tables with relationships and indexes
+- ✅ **API Architecture** - 100+ endpoint specifications
+- ✅ **Frontend Architecture** - Component structure and UI patterns
+- ✅ **Implementation Guide** - Step-by-step development roadmap
+- ✅ **UI/UX Design Guide** - Wireframes, color palette, and design system
+
+### What's Coming Next:
+- 🚧 **MVP Implementation** - Starting Phase 1 development (3-4 months)
+- 🚧 **Working Prototype** - Basic floor plan editor and material selector
+- 🚧 **Live Demo** - Hosted demo application
+
+### How to "See" the App Right Now:
+1. **Review the Specifications**: Browse the documentation files to understand the full vision
+2. **View the Wireframes**: Check [UI_UX_DESIGN_GUIDE.md](./UI_UX_DESIGN_GUIDE.md) for visual layouts
+3. **Understand the Features**: Read [FEATURES_SPECIFICATION.md](./FEATURES_SPECIFICATION.md) for detailed descriptions
+4. **See the Database Design**: View [DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md) for the data structure
+5. **Check the Roadmap**: Review [IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md) for the development timeline
+
+📋 **[Read the full Project Status](./PROJECT_STATUS.md)** for more details on the current phase and timeline.
+
+### 🎯 Quick Navigation
+
+**Want to see what the app will look like?**
+- 📱 [UI/UX Design Guide](./UI_UX_DESIGN_GUIDE.md) - Wireframes and visual layouts
+- ✨ [Features Specification](./FEATURES_SPECIFICATION.md) - Detailed feature descriptions with benefits
+
+**Want to understand the technical architecture?**
+- 🗄️ [Database Schema](./DATABASE_SCHEMA.md) - Complete data model
+- 🔌 [API Architecture](./API_ARCHITECTURE.md) - All endpoints and integration
+- ⚛️ [Frontend Architecture](./FRONTEND_ARCHITECTURE.md) - React components and patterns
+
+**Ready to start building?**
+- 🛠️ [Implementation Guide](./IMPLEMENTATION_GUIDE.md) - Step-by-step development plan
+- 💎 [Best Practices](./BEST_PRACTICES.md) - Coding standards and guidelines
+- 🧭 [Documentation Guide](./DOCUMENTATION_GUIDE.md) - How to navigate all docs
+
+---
+
 ## 🏡 Overview
 
 Builder App is an all-in-one platform that transforms the home building experience by putting powerful design tools in clients' hands while maintaining professional oversight. From initial design to final construction, every step is streamlined, transparent, and collaborative.
@@ -35,43 +81,89 @@ This repository contains comprehensive documentation for implementing the Builde
 - **[FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md)** - React component structure and UI patterns
 - **[IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md)** - Step-by-step development and deployment guide
 
-## 🚀 Quick Start
+## 🚀 Getting Started
 
-### Prerequisites
+### Currently Available: Documentation & Specifications
+
+Since the application code is not yet implemented, here's how to get started:
+
+#### 1. **Explore the Documentation**
+```bash
+git clone https://github.com/yasirsabriroyal/builderapps.git
+cd builderapps
+
+# Browse the documentation files
+ls -la *.md
+
+# Start with these key documents:
+cat PROJECT_STATUS.md          # Understand current status
+cat FEATURES_SPECIFICATION.md  # See all planned features
+cat UI_UX_DESIGN_GUIDE.md     # View wireframes and designs
+```
+
+#### 2. **Understand the Architecture**
+- Read [DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md) for data structure
+- Review [API_ARCHITECTURE.md](./API_ARCHITECTURE.md) for backend endpoints
+- Study [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) for UI components
+
+#### 3. **Plan Your Implementation**
+Follow the [IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md) which includes:
+- Week-by-week development plan
+- Technology setup instructions
+- Code examples for each feature
+- Testing and deployment strategies
+
+### Future: When Application Code is Ready
+
+Once development begins, the setup will be:
+
+<details>
+<summary><b>Prerequisites (for future implementation)</b></summary>
+
 - Node.js 18+
 - PostgreSQL 15+
 - AWS Account (for file storage)
 - SendGrid Account (for emails)
 
-### Installation
+</details>
 
-1. **Clone the repository**
+<details>
+<summary><b>Installation Steps (for future implementation)</b></summary>
+
 ```bash
+# 1. Clone the repository
 git clone https://github.com/yasirsabriroyal/builderapps.git
 cd builderapps
-```
 
-2. **Set up the database**
-```bash
+# 2. Set up the database
 createdb builder_app
 psql -d builder_app -f database/schema.sql
-```
 
-3. **Configure environment variables**
-```bash
-# Backend
-cp backend/.env.example backend/.env
-# Edit backend/.env with your configuration
-
-# Frontend
-cp frontend/.env.example frontend/.env
-# Edit frontend/.env with your configuration
-```
-
-4. **Install dependencies**
-```bash
-# Backend
+# 3. Install backend dependencies
 cd backend
+npm install
+cp .env.example .env
+# Edit .env with your configuration
+
+# 4. Install frontend dependencies
+cd ../frontend
+npm install
+cp .env.example .env
+# Edit .env with your configuration
+
+# 5. Start development servers
+# Terminal 1 - Backend
+cd backend && npm run dev
+
+# Terminal 2 - Frontend
+cd frontend && npm start
+
+# 6. Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:3000/api/v1
+```
+
+</details>
 npm install
 
 # Frontend
