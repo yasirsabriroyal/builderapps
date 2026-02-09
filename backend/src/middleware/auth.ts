@@ -3,8 +3,17 @@ import jwt from 'jsonwebtoken';
 import { authConfig } from '../config/auth';
 import User from '../models/User';
 
+export interface AuthenticatedUser {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: 'admin' | 'builder' | 'homeowner' | 'contractor';
+  phone?: string;
+}
+
 export interface AuthRequest extends Request {
-  user?: any;
+  user?: AuthenticatedUser;
 }
 
 export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -24,7 +33,14 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
       return res.status(401).json({ message: 'Invalid token' });
     }
 
-    req.user = user;
+    req.user = {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+      phone: user.phone
+    };
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token' });

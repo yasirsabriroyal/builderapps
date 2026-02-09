@@ -1,15 +1,27 @@
 import { Response, NextFunction, Request } from 'express';
-import { Op } from 'sequelize';
+import { Op, WhereOptions } from 'sequelize';
 import { Material, MaterialCategory } from '../models';
+
+interface MaterialWhereConditions {
+  categoryId?: number;
+  [Op.or]?: Array<{
+    name?: { [Op.iLike]: string };
+    description?: { [Op.iLike]: string };
+  }>;
+  price?: {
+    [Op.gte]?: number;
+    [Op.lte]?: number;
+  };
+}
 
 export const listMaterials = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { categoryId, search, minPrice, maxPrice, page = 1, limit = 20 } = req.query;
 
-    const where: any = {};
+    const where: MaterialWhereConditions = {};
 
     if (categoryId) {
-      where.categoryId = categoryId;
+      where.categoryId = Number(categoryId);
     }
 
     if (search) {
@@ -21,14 +33,14 @@ export const listMaterials = async (req: Request, res: Response, next: NextFunct
 
     if (minPrice || maxPrice) {
       where.price = {};
-      if (minPrice) where.price[Op.gte] = minPrice;
-      if (maxPrice) where.price[Op.lte] = maxPrice;
+      if (minPrice) where.price[Op.gte] = Number(minPrice);
+      if (maxPrice) where.price[Op.lte] = Number(maxPrice);
     }
 
     const offset = (Number(page) - 1) * Number(limit);
 
     const { count, rows: materials } = await Material.findAndCountAll({
-      where,
+      where: where as WhereOptions,
       include: [{ association: 'category', attributes: ['id', 'name'] }],
       limit: Number(limit),
       offset,
