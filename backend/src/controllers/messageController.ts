@@ -10,7 +10,8 @@ export const listMessages = async (req: AuthRequest, res: Response, next: NextFu
     }
 
     const { id: projectId } = req.params;
-    const { limit = 50, offset = 0 } = req.query;
+    const limit = Number(req.query.limit) || 50;
+    const offset = Number(req.query.offset) || 0;
 
     const project = await Project.findOne({
       where: { id: projectId, userId: req.user.id }
@@ -23,8 +24,8 @@ export const listMessages = async (req: AuthRequest, res: Response, next: NextFu
     const messages = await Message.findAll({
       where: { projectId },
       include: [{ association: 'user', attributes: ['id', 'firstName', 'lastName'] }],
-      limit: Number(limit),
-      offset: Number(offset),
+      limit,
+      offset,
       order: [['createdAt', 'ASC']]
     });
 

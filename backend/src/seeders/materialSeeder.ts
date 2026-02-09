@@ -96,7 +96,12 @@ const materials = [
 
 export const seedDatabase = async () => {
   try {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('Cannot run seeder in production environment!');
+    }
+
     console.log('🌱 Starting database seed...');
+    console.log('⚠️  WARNING: This will drop all existing tables and data!');
 
     await sequelize.sync({ force: true });
     console.log('✅ Database synced');

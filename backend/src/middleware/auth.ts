@@ -24,8 +24,14 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
       return res.status(401).json({ message: 'No token provided' });
     }
 
-    const decoded = jwt.verify(token, authConfig.jwtSecret) as { userId: number };
-    const user = await User.findByPk(decoded.userId, {
+    const decoded = jwt.verify(token, authConfig.jwtSecret);
+    
+    if (typeof decoded === 'string' || !decoded || typeof decoded.userId !== 'number') {
+      return res.status(401).json({ message: 'Invalid token format' });
+    }
+
+    const userId = decoded.userId;
+    const user = await User.findByPk(userId, {
       attributes: { exclude: ['password'] }
     });
 

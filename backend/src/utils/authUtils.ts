@@ -1,10 +1,9 @@
-import { Response } from 'express';
+import { AppError } from '../middleware/errorHandler';
 import { AuthRequest, AuthenticatedUser } from '../middleware/auth';
 
-export const requireAuth = (req: AuthRequest, res: Response): AuthenticatedUser | null => {
+export const requireAuth = (req: AuthRequest): AuthenticatedUser => {
   if (!req.user) {
-    res.status(401).json({ message: 'Unauthorized: User not authenticated' });
-    return null;
+    throw new AppError('Unauthorized: User not authenticated', 401);
   }
   return req.user;
 };

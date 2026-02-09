@@ -5,6 +5,9 @@ interface ProjectWithAssociations extends Project {
   milestones?: Milestone[];
 }
 
+const TASK_WEIGHT = 50;
+const MILESTONE_WEIGHT = 50;
+
 export const calculateProjectProgress = async (projectId: number): Promise<number> => {
   const project = await Project.findByPk(projectId, {
     include: [{ association: 'tasks' }, { association: 'milestones' }]
@@ -27,8 +30,8 @@ export const calculateProjectProgress = async (projectId: number): Promise<numbe
     return 0;
   }
 
-  const taskProgress = totalTasks > 0 ? (completedTasks / totalTasks) * 50 : 0;
-  const milestoneProgress = totalMilestones > 0 ? (completedMilestones / totalMilestones) * 50 : 0;
+  const taskProgress = totalTasks > 0 ? (completedTasks / totalTasks) * TASK_WEIGHT : 0;
+  const milestoneProgress = totalMilestones > 0 ? (completedMilestones / totalMilestones) * MILESTONE_WEIGHT : 0;
 
   return Math.round(taskProgress + milestoneProgress);
 };
