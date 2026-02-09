@@ -8,13 +8,15 @@ import {
 } from '../controllers/projectController';
 import { authenticate } from '../middleware/auth';
 import { validateProject } from '../middleware/validation';
+import { apiLimiter, createLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 
 router.use(authenticate);
+router.use(apiLimiter);
 
 router.get('/', listProjects);
-router.post('/', validateProject, createProject);
+router.post('/', createLimiter, validateProject, createProject);
 router.get('/:id', getProject);
 router.put('/:id', updateProject);
 router.delete('/:id', deleteProject);
