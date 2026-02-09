@@ -5,6 +5,10 @@ import { ProjectMaterial, Material, Project } from '../models';
 
 export const listProjectMaterials = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
 
     const project = await Project.findOne({
@@ -32,6 +36,10 @@ export const listProjectMaterials = async (req: AuthRequest, res: Response, next
 
 export const addProjectMaterial = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { materialId, quantity, room } = req.body;
 
@@ -70,6 +78,10 @@ export const addProjectMaterial = async (req: AuthRequest, res: Response, next: 
 
 export const removeProjectMaterial = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, materialId } = req.params;
 
     const project = await Project.findOne({

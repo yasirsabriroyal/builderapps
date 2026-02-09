@@ -5,6 +5,10 @@ import { Milestone, Project } from '../models';
 
 export const listMilestones = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
 
     const project = await Project.findOne({
@@ -32,6 +36,10 @@ export const listMilestones = async (req: AuthRequest, res: Response, next: Next
 
 export const createMilestone = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { name, description, dueDate, status } = req.body;
 
@@ -66,6 +74,10 @@ export const createMilestone = async (req: AuthRequest, res: Response, next: Nex
 
 export const updateMilestone = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, milestoneId } = req.params;
     const { name, description, dueDate, completedDate, status } = req.body;
 

@@ -5,6 +5,10 @@ import { Message, Project } from '../models';
 
 export const listMessages = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { limit = 50, offset = 0 } = req.query;
 
@@ -36,6 +40,10 @@ export const listMessages = async (req: AuthRequest, res: Response, next: NextFu
 
 export const createMessage = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { content } = req.body;
 

@@ -5,6 +5,10 @@ import { Project, FloorPlan, Budget } from '../models';
 
 export const listProjects = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const projects = await Project.findAll({
       where: { userId: req.user.id },
       include: [
@@ -26,6 +30,10 @@ export const listProjects = async (req: AuthRequest, res: Response, next: NextFu
 
 export const createProject = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { name, status, designData, budget } = req.body;
 
     const project = await Project.create({
@@ -53,6 +61,10 @@ export const createProject = async (req: AuthRequest, res: Response, next: NextF
 
 export const getProject = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id } = req.params;
 
     const project = await Project.findOne({
@@ -81,6 +93,10 @@ export const getProject = async (req: AuthRequest, res: Response, next: NextFunc
 
 export const updateProject = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id } = req.params;
     const { name, status, designData, budget } = req.body;
 
@@ -110,6 +126,10 @@ export const updateProject = async (req: AuthRequest, res: Response, next: NextF
 
 export const deleteProject = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id } = req.params;
 
     const project = await Project.findOne({

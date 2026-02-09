@@ -5,6 +5,10 @@ import { Budget, BudgetLineItem, Project } from '../models';
 
 export const getBudget = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
 
     const project = await Project.findOne({
@@ -35,6 +39,10 @@ export const getBudget = async (req: AuthRequest, res: Response, next: NextFunct
 
 export const updateBudget = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { totalBudget, actualCost } = req.body;
 
@@ -70,6 +78,10 @@ export const updateBudget = async (req: AuthRequest, res: Response, next: NextFu
 
 export const addLineItem = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { category, description, estimatedCost, actualCost } = req.body;
 

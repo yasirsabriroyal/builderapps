@@ -5,6 +5,10 @@ import { FloorPlan, Project } from '../models';
 
 export const listFloorPlans = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
 
     const project = await Project.findOne({
@@ -32,6 +36,10 @@ export const listFloorPlans = async (req: AuthRequest, res: Response, next: Next
 
 export const createFloorPlan = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { name, canvasData } = req.body;
 
@@ -60,6 +68,10 @@ export const createFloorPlan = async (req: AuthRequest, res: Response, next: Nex
 
 export const getFloorPlan = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, floorPlanId } = req.params;
 
     const project = await Project.findOne({
@@ -89,6 +101,10 @@ export const getFloorPlan = async (req: AuthRequest, res: Response, next: NextFu
 
 export const updateFloorPlan = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, floorPlanId } = req.params;
     const { name, canvasData } = req.body;
 

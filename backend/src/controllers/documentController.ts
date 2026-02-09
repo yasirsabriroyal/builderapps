@@ -5,6 +5,10 @@ import { Document, Project } from '../models';
 
 export const listDocuments = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
 
     const project = await Project.findOne({
@@ -33,6 +37,10 @@ export const listDocuments = async (req: AuthRequest, res: Response, next: NextF
 
 export const uploadDocument = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { name, fileUrl, category } = req.body;
 
@@ -63,6 +71,10 @@ export const uploadDocument = async (req: AuthRequest, res: Response, next: Next
 
 export const deleteDocument = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, documentId } = req.params;
 
     const project = await Project.findOne({

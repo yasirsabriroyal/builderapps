@@ -83,6 +83,10 @@ export const login = async (req: AuthRequest, res: Response, next: NextFunction)
 
 export const getCurrentUser = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const user = await User.findByPk(req.user.id, {
       attributes: { exclude: ['password'] }
     });

@@ -5,6 +5,10 @@ import { Task, Project } from '../models';
 
 export const listTasks = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
 
     const project = await Project.findOne({
@@ -33,6 +37,10 @@ export const listTasks = async (req: AuthRequest, res: Response, next: NextFunct
 
 export const createTask = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId } = req.params;
     const { title, description, assignedTo, dueDate, status, priority } = req.body;
 
@@ -69,6 +77,10 @@ export const createTask = async (req: AuthRequest, res: Response, next: NextFunc
 
 export const updateTask = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, taskId } = req.params;
     const { title, description, assignedTo, dueDate, status, priority } = req.body;
 
@@ -108,6 +120,10 @@ export const updateTask = async (req: AuthRequest, res: Response, next: NextFunc
 
 export const deleteTask = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    if (!req.user) {
+      throw new AppError('Unauthorized', 401);
+    }
+
     const { id: projectId, taskId } = req.params;
 
     const project = await Project.findOne({
