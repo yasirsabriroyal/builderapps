@@ -1,22 +1,27 @@
-import { Project } from '../models';
+import { Project, Task, Milestone } from '../models';
+
+interface ProjectWithAssociations extends Project {
+  tasks?: Task[];
+  milestones?: Milestone[];
+}
 
 export const calculateProjectProgress = async (projectId: number): Promise<number> => {
   const project = await Project.findByPk(projectId, {
     include: [{ association: 'tasks' }, { association: 'milestones' }]
-  });
+  }) as ProjectWithAssociations | null;
 
   if (!project) {
     return 0;
   }
 
-  const tasks = (project as any).tasks || [];
-  const milestones = (project as any).milestones || [];
+  const tasks = project.tasks || [];
+  const milestones = project.milestones || [];
 
   const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((t: any) => t.status === 'completed').length;
+  const completedTasks = tasks.filter((t: Task) => t.status === 'completed').length;
 
   const totalMilestones = milestones.length;
-  const completedMilestones = milestones.filter((m: any) => m.status === 'completed').length;
+  const completedMilestones = milestones.filter((m: Milestone) => m.status === 'completed').length;
 
   if (totalTasks === 0 && totalMilestones === 0) {
     return 0;

@@ -102,15 +102,24 @@ export const getCurrentUser = async (req: AuthRequest, res: Response, next: Next
 
 export const resetPassword = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const { email, newPassword } = req.body;
+    const { email, currentPassword, newPassword } = req.body;
 
-    if (!email || !newPassword) {
-      throw new AppError('Please provide email and new password', 400);
+    if (!email || !currentPassword || !newPassword) {
+      throw new AppError('Please provide email, current password, and new password', 400);
     }
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
       throw new AppError('User not found', 404);
+    }
+
+    const isPasswordValid = await user.comparePassword(currentPassword);
+    if (!isPasswordValid) {
+      throw new AppError('Current password is incorrect', 401);
+    }
+
+    if (newPassword.length < 6) {
+      throw new AppError('New password must be at least 6 characters', 400);
     }
 
     user.password = newPassword;

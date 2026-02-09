@@ -43,8 +43,11 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ Database connected successfully');
 
-    await sequelize.sync({ alter: process.env.NODE_ENV === 'development' });
-    console.log('✅ Database synchronized');
+    if (process.env.NODE_ENV === 'development') {
+      console.log('⚠️  Development mode: Using sync. Consider using migrations for production.');
+      await sequelize.sync({ alter: true });
+      console.log('✅ Database synchronized');
+    }
 
     httpServer.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);

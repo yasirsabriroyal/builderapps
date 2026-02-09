@@ -94,21 +94,6 @@ const materials = [
   { categoryName: 'Insulation', name: 'Blown-in Cellulose - R38', price: 0.65, vendor: 'Insulation Pro', imageUrl: 'https://placehold.co/400x300/dcdcdc/000?text=Cellulose' }
 ];
 
-const floorPlanTemplates = [
-  {
-    name: 'Ranch Style - 2 Bed 2 Bath',
-    canvasData: {
-      rooms: [
-        { type: 'living', x: 100, y: 100, width: 300, height: 250 },
-        { type: 'kitchen', x: 400, y: 100, width: 200, height: 150 },
-        { type: 'bedroom', x: 100, y: 350, width: 200, height: 180 },
-        { type: 'bedroom', x: 300, y: 350, width: 200, height: 180 },
-        { type: 'bathroom', x: 500, y: 350, width: 100, height: 180 }
-      ]
-    }
-  }
-];
-
 export const seedDatabase = async () => {
   try {
     console.log('🌱 Starting database seed...');
