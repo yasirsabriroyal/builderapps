@@ -77,9 +77,9 @@ console.log('├─────────────────────�
 checks.forEach(check => {
     const statusIcon = check.status === 'PASS' ? '✅' : check.status === 'WARN' ? '⚠️ ' : '❌';
     const name = check.name.padEnd(27);
-    const status = `${statusIcon} ${check.status}`.padEnd(6);
+    const statusText = `${statusIcon} ${check.status}`;
     const detail = check.detail.padEnd(24);
-    console.log(`│ ${name} │ ${status} │ ${detail} │`);
+    console.log(`│ ${name} │ ${statusText.padEnd(8)} │ ${detail} │`);
 });
 
 console.log('└─────────────────────────────┴────────┴──────────────────────────┘\n');
