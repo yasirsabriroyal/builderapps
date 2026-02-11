@@ -59,7 +59,6 @@ if (fs.existsSync(path.join(__dirname, '..', 'backend', 'node_modules'))) {
 // Check database
 try {
     // Use psql with simpler, cross-platform approach
-    execSync('psql -U postgres -l', { encoding: 'utf8', stdio: 'pipe' });
     const dbList = execSync('psql -U postgres -l', { encoding: 'utf8', stdio: 'pipe' });
     if (dbList.includes('home_builder_db')) {
         checks.push({ name: 'Database', status: 'PASS', detail: 'home_builder_db exists' });
