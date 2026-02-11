@@ -2,13 +2,40 @@
 
 [![Deploy to GitHub Pages](https://github.com/yasirsabriroyal/builderapps/actions/workflows/gh-pages-deploy.yml/badge.svg)](https://github.com/yasirsabriroyal/builderapps/actions/workflows/gh-pages-deploy.yml)
 
-A Progressive Web App (PWA) that empowers customers to design and customize their dream home through an interactive, multi-stage process.
+A full-stack Progressive Web App (PWA) that empowers customers to design and customize their dream home through an interactive, multi-stage process.
 
 ## 🚀 Live Demo
 
 **[Try the Live Demo →](https://yasirsabriroyal.github.io/builderapps/)**
 
-Experience the full application without any installation required!
+Experience the full frontend application without any installation required!
+
+## 📊 Project Status
+
+**80% Complete** - Frontend deployed, backend ready for setup
+
+- ✅ **Frontend:** Live and fully functional
+- ✅ **Backend API:** Complete codebase (52 files, 2,900+ lines)
+- ⏳ **Database:** Needs PostgreSQL setup
+- 📝 **Features:** Some pages need implementation
+
+**👉 See [STATUS_AND_NEXT_STEPS.md](STATUS_AND_NEXT_STEPS.md) for detailed status and setup instructions**
+
+## ⚡ Quick Start
+
+### For Development Setup:
+
+```bash
+# Clone the repository
+git clone https://github.com/yasirsabriroyal/builderapps.git
+cd builderapps
+
+# Run the quick start script
+./quick-start.sh      # macOS/Linux
+quick-start.bat       # Windows
+```
+
+Or see **[STATUS_AND_NEXT_STEPS.md](STATUS_AND_NEXT_STEPS.md)** for detailed setup instructions.
 
 > **📘 Setting up GitHub Pages?** See **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** for easy setup instructions!
 
@@ -34,38 +61,66 @@ Experience the full application without any installation required!
 
 ## Technology Stack
 
-- **Frontend**: React 18+ with TypeScript
-- **Styling**: Tailwind CSS
+### Frontend
+- **Framework**: React 18+ with TypeScript
+- **Styling**: Tailwind CSS + Material-UI
 - **State Management**: React Context API
 - **Routing**: React Router v6
 - **Build Tool**: Vite
 - **PWA**: Service Workers & Web App Manifest
+- **3D Graphics**: Three.js + React Three Fiber
+- **Canvas**: Fabric.js for floor plans
+
+### Backend
+- **Runtime**: Node.js + Express
+- **Database**: PostgreSQL + Sequelize ORM
+- **Authentication**: JWT + bcryptjs
+- **Real-time**: Socket.io
+- **Language**: TypeScript (strict mode)
+- **Security**: Rate limiting, input validation
 
 ## Getting Started
 
-### Prerequisites
+### Quick Setup (Recommended)
+
+```bash
+# Run the automated setup script
+./quick-start.sh      # macOS/Linux
+quick-start.bat       # Windows
+```
+
+Then follow the on-screen instructions!
+
+### Manual Setup
+
+#### Prerequisites
 
 - Node.js 18+ and npm
+- PostgreSQL 12+ (for backend)
 
-### Installation
+#### Frontend Only
 
-1. Clone the repository:
+1. Clone and install:
 ```bash
 git clone https://github.com/yasirsabriroyal/builderapps.git
 cd builderapps
-```
-
-2. Install dependencies:
-```bash
 npm install
 ```
 
-3. Start the development server:
+2. Start the development server:
 ```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+3. Open your browser and navigate to `http://localhost:5173`
+
+#### Full Stack Setup
+
+See **[STATUS_AND_NEXT_STEPS.md](STATUS_AND_NEXT_STEPS.md)** for complete setup instructions including:
+- PostgreSQL database setup
+- Environment configuration
+- Backend initialization
+- Feature implementation guide
 
 ### Build for Production
 
@@ -141,6 +196,48 @@ The app uses realistic mock data for:
 - Room customization materials (various price points)
 
 All pricing is for demonstration purposes only.
+
+## 📚 Documentation
+
+- **[STATUS_AND_NEXT_STEPS.md](STATUS_AND_NEXT_STEPS.md)** - 📊 Complete project status and detailed setup guide
+- **[BACKEND_COMPLETE.md](BACKEND_COMPLETE.md)** - Backend implementation details
+- **[FRONTEND_SERVICES.md](FRONTEND_SERVICES.md)** - Frontend services and authentication
+- **[DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)** - GitHub Pages deployment guide
+- **[backend/README.md](backend/README.md)** - Backend API reference
+
+## What's Implemented
+
+✅ **Frontend Application:**
+- Complete 3-stage home design workflow
+- Real-time price calculator
+- PWA with offline support
+- Authentication UI (Login, Register, Profile)
+- Dashboard and navigation
+- Material-UI components
+- Responsive design
+
+✅ **Backend API:**
+- 30+ RESTful endpoints
+- 13 database models
+- JWT authentication & authorization
+- Rate limiting & security
+- Real-time messaging (Socket.io)
+- Database seeders (70+ materials)
+- Complete TypeScript implementation
+
+⏳ **Needs Setup:**
+- PostgreSQL database
+- Environment configuration
+- Backend deployment
+
+📝 **Placeholder Pages (Ready for Implementation):**
+- Floor plan designer
+- 3D viewer
+- Materials browser
+- Budget tracker
+- Timeline/Gantt chart
+- Document management
+- Real-time collaboration
 
 ## Future Enhancements
 
