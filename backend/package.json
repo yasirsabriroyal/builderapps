@@ -7,7 +7,8 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "seed": "ts-node src/seeders/seed.ts"
+    "seed": "ts-node src/seeders/seed.ts",
+    "db:create": "createdb home_builder_db"
   },
   "keywords": ["home-builder", "backend", "api"],
   "author": "",
