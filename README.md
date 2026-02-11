@@ -46,8 +46,39 @@ Experience the full application without any installation required!
 ### Prerequisites
 
 - Node.js 18+ and npm
+- PostgreSQL 12+ (for backend development)
 
-### Installation
+### Quick Setup (Recommended)
+
+For a complete development setup with backend and frontend:
+
+#### Unix/Linux/macOS:
+```bash
+git clone https://github.com/yasirsabriroyal/builderapps.git
+cd builderapps
+chmod +x setup-dev.sh
+./setup-dev.sh
+```
+
+#### Windows:
+```batch
+git clone https://github.com/yasirsabriroyal/builderapps.git
+cd builderapps
+setup-dev.bat
+```
+
+This automated script will:
+- ✅ Install all dependencies
+- ✅ Create environment files with secure defaults
+- ✅ Setup PostgreSQL database
+- ✅ Seed database with materials and categories
+- ✅ Build the frontend
+
+📚 **See [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed manual setup instructions**
+
+### Frontend-Only Setup
+
+If you only want to run the frontend (without backend):
 
 1. Clone the repository:
 ```bash
@@ -66,6 +97,32 @@ npm run dev
 ```
 
 4. Open your browser and navigate to `http://localhost:5173`
+
+### Full-Stack Development
+
+After running the setup script, start both servers:
+
+**Terminal 1 (Backend):**
+```bash
+cd backend
+npm run dev
+```
+
+**Terminal 2 (Frontend):**
+```bash
+npm run dev
+```
+
+**Access:**
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:5000/api
+
+### Verify Setup
+
+Check that everything is configured correctly:
+```bash
+npm run verify
+```
 
 ### Build for Production
 

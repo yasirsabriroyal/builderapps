@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "setup": "node scripts/verify-setup.js",
-    "verify": "node scripts/verify-setup.js",
+    "setup": "node scripts/verify-setup.cjs",
+    "verify": "node scripts/verify-setup.cjs",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "npm run dev",
     "seed": "cd backend && npm run seed"
