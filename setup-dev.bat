@@ -66,16 +66,19 @@ if not exist .env (
 REM Backend .env
 if not exist backend\.env (
     echo Creating backend .env file...
+    
+    REM Generate a random JWT secret using Node.js
+    for /f "delims=" %%i in ('node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"') do set JWT_SECRET=%%i
+    
     (
         echo PORT=5000
         echo NODE_ENV=development
         echo DATABASE_URL=postgresql://postgres:postgres@localhost:5432/home_builder_db
-        echo JWT_SECRET=change-this-to-a-secure-random-string-min-32-characters-long
+        echo JWT_SECRET=!JWT_SECRET!
         echo JWT_EXPIRE=7d
         echo FRONTEND_URL=http://localhost:5173
     ) > backend\.env
-    echo [OK] Created backend/.env
-    echo [WARNING] Please update JWT_SECRET in backend/.env with a secure random string
+    echo [OK] Created backend/.env with generated JWT_SECRET
 ) else (
     echo [OK] backend/.env already exists
 )

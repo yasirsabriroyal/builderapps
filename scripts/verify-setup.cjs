@@ -58,10 +58,16 @@ if (fs.existsSync(path.join(__dirname, '..', 'backend', 'node_modules'))) {
 
 // Check database
 try {
-    execSync('psql -U postgres -lqt | cut -d \\| -f 1 | grep -qw home_builder_db', { encoding: 'utf8' });
-    checks.push({ name: 'Database', status: 'PASS', detail: 'home_builder_db exists' });
+    // Use psql with simpler, cross-platform approach
+    execSync('psql -U postgres -l', { encoding: 'utf8', stdio: 'pipe' });
+    const dbList = execSync('psql -U postgres -l', { encoding: 'utf8', stdio: 'pipe' });
+    if (dbList.includes('home_builder_db')) {
+        checks.push({ name: 'Database', status: 'PASS', detail: 'home_builder_db exists' });
+    } else {
+        checks.push({ name: 'Database', status: 'WARN', detail: 'home_builder_db not found' });
+    }
 } catch (error) {
-    checks.push({ name: 'Database', status: 'WARN', detail: 'home_builder_db not found or cannot connect' });
+    checks.push({ name: 'Database', status: 'WARN', detail: 'Cannot connect to PostgreSQL' });
 }
 
 // Print results
