@@ -9,7 +9,7 @@ interface ProgressBarProps {
 
 export function ProgressBar({ currentStage }: ProgressBarProps) {
   const navigate = useNavigate();
-  const { state, setStage } = useAppContext();
+  const { setStage } = useAppContext();
   
   const stages = [
     { number: 1, label: 'Foundation', path: '/stage1' },
@@ -20,7 +20,7 @@ export function ProgressBar({ currentStage }: ProgressBarProps) {
   const canNavigateToStage = (stageNumber: number) => {
     // Users can navigate to current stage or any previously completed stage
     // They cannot skip ahead to future stages
-    return stageNumber <= state.currentStage;
+    return stageNumber <= currentStage;
   };
 
   const handleStageClick = (stage: typeof stages[0]) => {
@@ -43,7 +43,9 @@ export function ProgressBar({ currentStage }: ProgressBarProps) {
                     ? 'bg-primary-600 text-white' 
                     : 'bg-gray-200 text-gray-500'
                   }
-                  ${canNavigateToStage(stage.number) ? 'cursor-pointer hover:scale-110 hover:shadow-lg' : 'cursor-not-allowed opacity-50'}
+                  ${canNavigateToStage(stage.number) 
+                    ? 'cursor-pointer hover:scale-110 hover:shadow-lg' 
+                    : 'cursor-not-allowed opacity-60'}
                 `}
                 title={canNavigateToStage(stage.number) ? `Go to ${stage.label}` : `Complete previous stages first`}
               >
