@@ -4,6 +4,18 @@
 
 A Progressive Web App (PWA) that empowers customers to design and customize their dream home through an interactive, multi-stage process.
 
+## 📊 Application Status
+
+**Status:** 🟢 **LIVE AND OPERATIONAL**
+
+- **Live Demo:** [https://yasirsabriroyal.github.io/builderapps/](https://yasirsabriroyal.github.io/builderapps/)
+- **Deployment:** ✅ Automatic via GitHub Actions
+- **Last Update:** Successfully deployed from main branch
+
+📄 **For detailed status information:**
+- Quick Summary: [APP_STATUS_QUICK.md](APP_STATUS_QUICK.md) - Current status at a glance
+- Comprehensive Report: [STATUS.md](STATUS.md) - Full technical status and architecture overview
+
 ## 🚀 Live Demo
 
 **[Try the Live Demo →](https://yasirsabriroyal.github.io/builderapps/)**
