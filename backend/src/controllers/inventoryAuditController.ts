@@ -17,7 +17,7 @@ const auditWriteRoles: WorkspaceRole[] = ['owner', 'admin', 'auditor'];
 
 const normalizeSlug = (name: string) => {
   const trimmed = name.toLowerCase().trim();
-  let slug = '';
+  const segments: string[] = [];
   let previousWasDash = false;
 
   for (const character of trimmed) {
@@ -25,17 +25,18 @@ const normalizeSlug = (name: string) => {
       (character >= 'a' && character <= 'z') || (character >= '0' && character <= '9');
 
     if (isAlphaNumeric) {
-      slug += character;
+      segments.push(character);
       previousWasDash = false;
       continue;
     }
 
-    if (slug.length > 0 && !previousWasDash) {
-      slug += '-';
+    if (segments.length > 0 && !previousWasDash) {
+      segments.push('-');
       previousWasDash = true;
     }
   }
 
+  let slug = segments.join('');
   if (slug.endsWith('-')) {
     slug = slug.slice(0, -1);
   }
@@ -101,6 +102,7 @@ const toWorkspaceId = (value: string) => {
 };
 
 const generateImagePrefill = (source: string) => {
+  // Placeholder deterministic mapper until external vision model is integrated via the adapter boundary.
   const normalized = source.toLowerCase();
 
   const name = normalized.includes('drill')
@@ -354,7 +356,39 @@ export const updateInventoryItem = async (req: AuthRequest, res: Response, next:
       throw new AppError('Inventory item not found', 404);
     }
 
-    await item.update({ ...req.body });
+    const {
+      name,
+      category,
+      brand,
+      model,
+      serialNumber,
+      quantity,
+      unit,
+      condition,
+      status,
+      location,
+      assignedTo,
+      description,
+      imageUrl,
+      aiConfidence
+    } = req.body;
+
+    await item.update({
+      ...(name !== undefined && { name }),
+      ...(category !== undefined && { category }),
+      ...(brand !== undefined && { brand }),
+      ...(model !== undefined && { model }),
+      ...(serialNumber !== undefined && { serialNumber }),
+      ...(quantity !== undefined && { quantity: Number(quantity) }),
+      ...(unit !== undefined && { unit }),
+      ...(condition !== undefined && { condition }),
+      ...(status !== undefined && { status }),
+      ...(location !== undefined && { location }),
+      ...(assignedTo !== undefined && { assignedTo }),
+      ...(description !== undefined && { description }),
+      ...(imageUrl !== undefined && { imageUrl }),
+      ...(aiConfidence !== undefined && { aiConfidence })
+    });
 
     res.json({
       success: true,

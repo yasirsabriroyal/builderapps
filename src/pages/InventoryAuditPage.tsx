@@ -63,7 +63,7 @@ export const InventoryAuditPage: React.FC = () => {
 
   const [audits, setAudits] = useState<AuditSession[]>([]);
   const [newAuditName, setNewAuditName] = useState('');
-  const [countInputs, setCountInputs] = useState<Record<number, number>>({});
+  const [countInputs, setCountInputs] = useState<Record<number, string>>({});
 
   const [voiceInput, setVoiceInput] = useState('');
   const [analysisHint, setAnalysisHint] = useState('');
@@ -236,9 +236,14 @@ export const InventoryAuditPage: React.FC = () => {
       return;
     }
 
-    const countedQuantity = countInputs[itemId];
-    if (countedQuantity === undefined || Number.isNaN(countedQuantity)) {
+    const rawCount = countInputs[itemId];
+    if (rawCount === undefined || rawCount.trim() === '') {
       setError('Enter counted quantity first.');
+      return;
+    }
+    const countedQuantity = Number(rawCount);
+    if (Number.isNaN(countedQuantity)) {
+      setError('Counted quantity must be a valid number.');
       return;
     }
 
@@ -575,7 +580,7 @@ export const InventoryAuditPage: React.FC = () => {
                           onChange={event =>
                             setCountInputs(previous => ({
                               ...previous,
-                              [item.id]: Number(event.target.value)
+                               [item.id]: event.target.value
                             }))
                           }
                           sx={{ width: 100 }}
