@@ -14,6 +14,7 @@ import { BudgetPage } from './pages/BudgetPage';
 import { TimelinePage } from './pages/TimelinePage';
 import { DocumentsPage } from './pages/DocumentsPage';
 import { CollaborationPage } from './pages/CollaborationPage';
+import { InventoryAuditPage } from './pages/InventoryAuditPage';
 import { Stage1 } from './components/stage1/Stage1';
 import { Stage2 } from './components/stage2/Stage2';
 import { Stage3Packages } from './components/stage3/Stage3Packages';
@@ -43,6 +44,7 @@ function App() {
             <Route path="/timeline" element={<ProtectedRoute><TimelinePage /></ProtectedRoute>} />
             <Route path="/documents" element={<ProtectedRoute><DocumentsPage /></ProtectedRoute>} />
             <Route path="/collaboration" element={<ProtectedRoute><CollaborationPage /></ProtectedRoute>} />
+            <Route path="/inventory-audit" element={<ProtectedRoute><InventoryAuditPage /></ProtectedRoute>} />
           </Routes>
         </Router>
       </AppProvider>

@@ -13,6 +13,11 @@ import Message from './Message';
 import Task from './Task';
 import Notification from './Notification';
 import Gallery from './Gallery';
+import Workspace from './Workspace';
+import WorkspaceMember from './WorkspaceMember';
+import InventoryItem from './InventoryItem';
+import AuditSession from './AuditSession';
+import AuditEntry from './AuditEntry';
 
 User.hasMany(Project, { foreignKey: 'userId', as: 'projects' });
 Project.belongsTo(User, { foreignKey: 'userId', as: 'user' });
@@ -59,6 +64,34 @@ Notification.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 Project.hasMany(Gallery, { foreignKey: 'projectId', as: 'gallery' });
 Gallery.belongsTo(Project, { foreignKey: 'projectId', as: 'project' });
 
+User.hasMany(Workspace, { foreignKey: 'ownerUserId', as: 'ownedWorkspaces' });
+Workspace.belongsTo(User, { foreignKey: 'ownerUserId', as: 'owner' });
+
+Workspace.belongsToMany(User, { through: WorkspaceMember, foreignKey: 'workspaceId', as: 'members' });
+User.belongsToMany(Workspace, { through: WorkspaceMember, foreignKey: 'userId', as: 'workspaces' });
+
+WorkspaceMember.belongsTo(Workspace, { foreignKey: 'workspaceId', as: 'workspace' });
+WorkspaceMember.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+Workspace.hasMany(WorkspaceMember, { foreignKey: 'workspaceId', as: 'workspaceMembers' });
+User.hasMany(WorkspaceMember, { foreignKey: 'userId', as: 'workspaceMemberships' });
+
+Workspace.hasMany(InventoryItem, { foreignKey: 'workspaceId', as: 'inventoryItems' });
+InventoryItem.belongsTo(Workspace, { foreignKey: 'workspaceId', as: 'workspace' });
+User.hasMany(InventoryItem, { foreignKey: 'createdBy', as: 'createdInventoryItems' });
+InventoryItem.belongsTo(User, { foreignKey: 'createdBy', as: 'creator' });
+
+Workspace.hasMany(AuditSession, { foreignKey: 'workspaceId', as: 'auditSessions' });
+AuditSession.belongsTo(Workspace, { foreignKey: 'workspaceId', as: 'workspace' });
+User.hasMany(AuditSession, { foreignKey: 'startedBy', as: 'startedAuditSessions' });
+AuditSession.belongsTo(User, { foreignKey: 'startedBy', as: 'starter' });
+
+AuditSession.hasMany(AuditEntry, { foreignKey: 'auditSessionId', as: 'entries' });
+AuditEntry.belongsTo(AuditSession, { foreignKey: 'auditSessionId', as: 'session' });
+InventoryItem.hasMany(AuditEntry, { foreignKey: 'itemId', as: 'auditEntries' });
+AuditEntry.belongsTo(InventoryItem, { foreignKey: 'itemId', as: 'item' });
+User.hasMany(AuditEntry, { foreignKey: 'recordedBy', as: 'recordedAuditEntries' });
+AuditEntry.belongsTo(User, { foreignKey: 'recordedBy', as: 'recorder' });
+
 export {
   sequelize,
   User,
@@ -74,5 +107,10 @@ export {
   Message,
   Task,
   Notification,
-  Gallery
+  Gallery,
+  Workspace,
+  WorkspaceMember,
+  InventoryItem,
+  AuditSession,
+  AuditEntry
 };

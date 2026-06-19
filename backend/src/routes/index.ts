@@ -10,6 +10,7 @@ import messageRoutes from './messages';
 import taskRoutes from './tasks';
 import projectMaterialRoutes from './projectMaterials';
 import milestoneRoutes from './milestones';
+import workspaceRoutes from './workspaces';
 
 const router = Router();
 
@@ -24,5 +25,6 @@ router.use('/projects/:id/messages', messageRoutes);
 router.use('/projects/:id/tasks', taskRoutes);
 router.use('/projects/:id/materials', projectMaterialRoutes);
 router.use('/projects/:id/milestones', milestoneRoutes);
+router.use('/workspaces', workspaceRoutes);
 
 export default router;
