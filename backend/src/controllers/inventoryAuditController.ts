@@ -15,13 +15,33 @@ import { WorkspaceRole } from '../models/WorkspaceMember';
 const workspaceWriteRoles: WorkspaceRole[] = ['owner', 'admin'];
 const auditWriteRoles: WorkspaceRole[] = ['owner', 'admin', 'auditor'];
 
-const normalizeSlug = (name: string) =>
-  name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 60);
+const normalizeSlug = (name: string) => {
+  const trimmed = name.toLowerCase().trim();
+  let slug = '';
+  let previousWasDash = false;
+
+  for (const character of trimmed) {
+    const isAlphaNumeric =
+      (character >= 'a' && character <= 'z') || (character >= '0' && character <= '9');
+
+    if (isAlphaNumeric) {
+      slug += character;
+      previousWasDash = false;
+      continue;
+    }
+
+    if (slug.length > 0 && !previousWasDash) {
+      slug += '-';
+      previousWasDash = true;
+    }
+  }
+
+  if (slug.endsWith('-')) {
+    slug = slug.slice(0, -1);
+  }
+
+  return slug.slice(0, 60);
+};
 
 const createUniqueSlug = async (name: string) => {
   const baseSlug = normalizeSlug(name) || 'workspace';
