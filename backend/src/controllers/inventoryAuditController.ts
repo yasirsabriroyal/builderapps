@@ -10,10 +10,14 @@ import {
 } from '../models';
 import { AuthRequest } from '../middleware/auth';
 import { AppError } from '../middleware/errorHandler';
+import { InventoryCondition, InventoryStatus } from '../models/InventoryItem';
 import { WorkspaceRole } from '../models/WorkspaceMember';
 
 const workspaceWriteRoles: WorkspaceRole[] = ['owner', 'admin'];
 const auditWriteRoles: WorkspaceRole[] = ['owner', 'admin', 'auditor'];
+const inventoryConditions = new Set<InventoryCondition>(['new', 'good', 'fair', 'damaged']);
+const inventoryStatuses = new Set<InventoryStatus>(['available', 'in-use', 'missing', 'repair']);
+const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const normalizeSlug = (name: string) => {
   const trimmed = name.toLowerCase().trim();
@@ -36,16 +40,21 @@ const normalizeSlug = (name: string) => {
     }
   }
 
-  let slug = segments.join('');
-  if (slug.endsWith('-')) {
-    slug = slug.slice(0, -1);
+  const slug = segments
+    .join('')
+    .slice(0, 60)
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+
+  if (!slug || !slugPattern.test(slug)) {
+    return 'workspace';
   }
 
-  return slug.slice(0, 60);
+  return slug;
 };
 
 const createUniqueSlug = async (name: string) => {
-  const baseSlug = normalizeSlug(name) || 'workspace';
+  const baseSlug = normalizeSlug(name);
   let candidate = baseSlug;
   let suffix = 1;
 
@@ -373,22 +382,55 @@ export const updateInventoryItem = async (req: AuthRequest, res: Response, next:
       aiConfidence
     } = req.body;
 
-    await item.update({
-      ...(name !== undefined && { name }),
-      ...(category !== undefined && { category }),
-      ...(brand !== undefined && { brand }),
-      ...(model !== undefined && { model }),
-      ...(serialNumber !== undefined && { serialNumber }),
-      ...(quantity !== undefined && { quantity: Number(quantity) }),
-      ...(unit !== undefined && { unit }),
-      ...(condition !== undefined && { condition }),
-      ...(status !== undefined && { status }),
-      ...(location !== undefined && { location }),
-      ...(assignedTo !== undefined && { assignedTo }),
-      ...(description !== undefined && { description }),
-      ...(imageUrl !== undefined && { imageUrl }),
-      ...(aiConfidence !== undefined && { aiConfidence })
-    });
+    const updates: Record<string, unknown> = {};
+
+    if (name !== undefined) {
+      if (typeof name !== 'string' || !name.trim()) {
+        throw new AppError('name must be a non-empty string', 400);
+      }
+      updates.name = name.trim();
+    }
+
+    if (category !== undefined) {
+      if (typeof category !== 'string' || !category.trim()) {
+        throw new AppError('category must be a non-empty string', 400);
+      }
+      updates.category = category.trim();
+    }
+
+    if (condition !== undefined) {
+      if (typeof condition !== 'string' || !inventoryConditions.has(condition as InventoryCondition)) {
+        throw new AppError('Invalid condition value', 400);
+      }
+      updates.condition = condition;
+    }
+
+    if (status !== undefined) {
+      if (typeof status !== 'string' || !inventoryStatuses.has(status as InventoryStatus)) {
+        throw new AppError('Invalid status value', 400);
+      }
+      updates.status = status;
+    }
+
+    if (quantity !== undefined) {
+      const numericQuantity = Number(quantity);
+      if (!Number.isFinite(numericQuantity) || numericQuantity < 0) {
+        throw new AppError('quantity must be a non-negative number', 400);
+      }
+      updates.quantity = numericQuantity;
+    }
+
+    if (brand !== undefined) updates.brand = brand;
+    if (model !== undefined) updates.model = model;
+    if (serialNumber !== undefined) updates.serialNumber = serialNumber;
+    if (unit !== undefined) updates.unit = unit;
+    if (location !== undefined) updates.location = location;
+    if (assignedTo !== undefined) updates.assignedTo = assignedTo;
+    if (description !== undefined) updates.description = description;
+    if (imageUrl !== undefined) updates.imageUrl = imageUrl;
+    if (aiConfidence !== undefined) updates.aiConfidence = aiConfidence;
+
+    await item.update(updates);
 
     res.json({
       success: true,
