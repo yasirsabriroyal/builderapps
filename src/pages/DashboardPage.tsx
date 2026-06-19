@@ -15,6 +15,7 @@ export const DashboardPage: React.FC = () => {
     { title: 'Timeline', path: '/timeline', description: 'Manage project timeline' },
     { title: 'Documents', path: '/documents', description: 'Upload and manage documents' },
     { title: 'Collaboration', path: '/collaboration', description: 'Team communication' },
+    { title: 'Inventory Audit', path: '/inventory-audit', description: 'AI-assisted inventory and tools audits' },
   ];
 
   return (
